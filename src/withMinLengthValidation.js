@@ -11,7 +11,7 @@ const withMinLengthValidation = (Component, length) => {
 
     return (
       <div>
-        <Component value={value} onChange={onChange} />
+        <Component {...props} />
         {valueLength < length && <span>Minimum {length} required.</span>}
       </div>
     );
