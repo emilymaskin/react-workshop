@@ -3,9 +3,33 @@ import React, { Children, cloneElement } from 'react';
 class TabGroup extends React.Component {
 	// TODO: Add management of selected tab
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: null,
+    };
+  }
+
+  updateSelected = (index) => {
+    this.setState({
+      selected: index,
+    });
+  }
+
 	render() {
+    const {
+      children,
+    } = this.props;
+
 		return (
-			// TODO: Return something here
+			<div>
+        { Children.map(children, (c, i) => {
+          return cloneElement(c, {
+            selected: i === this.state.selected,
+            onClick: () => this.updateSelected(i),
+          });
+        })}
+      </div>
 		)
 	}
 }

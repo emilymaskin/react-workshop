@@ -1,5 +1,6 @@
 import React from 'react';
 
 export default ({ children }) => (
+  <b>{children}</b>
 	// TODO: Build title component
 )
