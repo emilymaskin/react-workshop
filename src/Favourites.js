@@ -30,7 +30,30 @@ const Favourites = ({
   </div>
 );
 
+
 const enhance = compose(
+  renameProp('imageUrl', 'thumbnailUrl'),
+  withState('name', 'setName', props => props.name),
+  withState('favourites', 'setFavourites', []),
+  withState('favouriteText', 'setFavouriteText', ''),
+  withHandlers({
+    updateName: (props) => event => {
+      props.setName(event.target.value);
+    },
+    updateFavouriteText: ({setFavouriteText}) => event => {
+      setFavouriteText(event.target.value);
+    },
+    addListEntry: ({
+      setFavourites,
+      favourites,
+      favouriteText,
+      setFavouriteText,
+    }) => event => {
+      event.preventDefault();
+      setFavourites([favouriteText, ...favourites]);
+      setFavouriteText('');
+    }
+  })
   // TODO add your higher order components here
 );
 
