@@ -10,7 +10,7 @@ const Planets = ({ data }) => (
 );
 
 const enhance = compose(
-  withFetch('https://swapi.co/api/planets/'),
+  withLoading('https://swapi.co/api/planets/')
 );
 
 export default enhance(Planets);
