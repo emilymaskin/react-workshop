@@ -1,13 +1,17 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { withRouter } from 'react-router'
 import { compose, withState } from 'recompose';
 import withLoading from '../withLoading';
+import Preparation from './Preparation';
+import Ingredients from './Ingredients';
 
 const Query = gql`
   query RecipeQuery($vegetarian: Boolean, $ingredient: String) {
     recipes(vegetarian: $vegetarian, ingredient: $ingredient) {
       _id
+      title
       ingredients {
         _id
         name
@@ -74,17 +78,9 @@ const Recipes = ({
         <div key={_id}>
           <h2>{title}</h2>
           <h3>Preparation</h3>
-          <div>
-            {preparation.map(entry => <p key={entry}>{entry}</p>)}
-          </div>
+          <Preparation preparation={preparation} />
           <h3>Ingredients</h3>
-          <div>
-            {ingredients.map(ingredient => (
-              <div key={ingredient._id}>
-                {ingredient.name}
-              </div>
-            ))}
-          </div>
+          <Ingredients ingredients={ingredients} />
         </div>
       ))}
     </div>
@@ -104,7 +100,8 @@ const enhance = compose(
       }
     }
   }),
-  withLoading
+  withLoading,
+  withRouter
 );
 
 export default enhance(Recipes);
